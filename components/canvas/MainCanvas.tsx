@@ -4,7 +4,6 @@ import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, MeshDistortMaterial, Sphere, Environment } from '@react-three/drei'
 import * as THREE from 'three'
-import { useTheme } from '@/components/providers/ThemeProvider'
 
 /* ─── Shared scroll state ─────────────────────────── */
 interface CanvasProps {
@@ -14,21 +13,19 @@ interface CanvasProps {
 /* ─── Particle Field (Act 1 — Chaos) ─────────────── */
 function ParticleField({ progress }: { progress: number }) {
   const ref = useRef<THREE.Points>(null!)
-  const stableRef = useRef<THREE.Points>(null!)
-  const count = 400
+  const count = 350
 
   const { chaosPos, stablePos } = useMemo(() => {
     const chaos  = new Float32Array(count * 3)
     const stable = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
-      chaos[i * 3]     = (Math.random() - 0.5) * 20
-      chaos[i * 3 + 1] = (Math.random() - 0.5) * 20
-      chaos[i * 3 + 2] = (Math.random() - 0.5) * 10
-      // grid positions for Act 2
+      chaos[i * 3]     = (Math.random() - 0.5) * 22
+      chaos[i * 3 + 1] = (Math.random() - 0.5) * 22
+      chaos[i * 3 + 2] = (Math.random() - 0.5) * 12
       const col = Math.floor(i % 20)
       const row = Math.floor(i / 20)
-      stable[i * 3]     = (col / 19) * 12 - 6
-      stable[i * 3 + 1] = (row / 19) * 8  - 4
+      stable[i * 3]     = (col / 19) * 14 - 7
+      stable[i * 3 + 1] = (row / 19) * 9  - 4.5
       stable[i * 3 + 2] = 0
     }
     return { chaosPos: chaos, stablePos: stable }
@@ -44,7 +41,7 @@ function ParticleField({ progress }: { progress: number }) {
     if (!ref.current) return
     const t = state.clock.elapsedTime
     const positions = ref.current.geometry.attributes.position.array as Float32Array
-    const t2 = Math.min(progress / 0.16, 1) // blend into Act 2
+    const t2 = Math.min(progress / 0.16, 1)
 
     for (let i = 0; i < count; i++) {
       const cx = chaosPos[i * 3]
@@ -52,14 +49,13 @@ function ParticleField({ progress }: { progress: number }) {
       const cz = chaosPos[i * 3 + 2]
       const sx = stablePos[i * 3]
       const sy = stablePos[i * 3 + 1]
-
-      const jitter = (1 - t2) * Math.sin(t * 2 + i) * 0.05
+      const jitter = (1 - t2) * Math.sin(t * 2.2 + i * 0.8) * 0.07
       positions[i * 3]     = cx + (sx - cx) * t2 + jitter
       positions[i * 3 + 1] = cy + (sy - cy) * t2 + jitter * 0.7
       positions[i * 3 + 2] = cz * (1 - t2)
     }
     ref.current.geometry.attributes.position.needsUpdate = true
-    ref.current.rotation.y = t * 0.02 * (1 - Math.min(progress / 0.1, 1))
+    ref.current.rotation.y = t * 0.018 * (1 - Math.min(progress / 0.1, 1))
   })
 
   const opacity = progress < 0.32 ? 1 : Math.max(0, 1 - (progress - 0.32) / 0.08)
@@ -68,10 +64,10 @@ function ParticleField({ progress }: { progress: number }) {
   return (
     <points ref={ref} geometry={geometry}>
       <pointsMaterial
-        size={0.06}
-        color="#1a52ff"
+        size={0.08}
+        color="#FF0000"
         transparent
-        opacity={opacity}
+        opacity={opacity * 0.85}
         sizeAttenuation
         depthWrite={false}
       />
@@ -88,20 +84,20 @@ function WireframeGrid({ progress }: { progress: number }) {
 
   useFrame((state) => {
     if (!ref.current) return
-    ref.current.rotation.x = Math.PI / 2 + Math.sin(state.clock.elapsedTime * 0.3) * 0.08
-    ref.current.rotation.z = state.clock.elapsedTime * 0.04
+    ref.current.rotation.x = Math.PI / 2 + Math.sin(state.clock.elapsedTime * 0.28) * 0.08
+    ref.current.rotation.z = state.clock.elapsedTime * 0.035
   })
 
   if (opacity <= 0.01) return null
 
   return (
     <mesh ref={ref} scale={[1 + enter * 0.3, 1 + enter * 0.3, 1]}>
-      <planeGeometry args={[16, 10, 24, 16]} />
+      <planeGeometry args={[16, 10, 12, 8]} />
       <meshBasicMaterial
-        color="#1a52ff"
+        color="#950101"
         wireframe
         transparent
-        opacity={opacity * 0.4}
+        opacity={opacity * 0.45}
         side={THREE.DoubleSide}
       />
     </mesh>
@@ -116,10 +112,10 @@ function FloatingPlanes({ progress }: { progress: number }) {
   if (opacity <= 0.01) return null
 
   const planes = [
-    { pos: [-3, 1.2, -1] as [number, number, number],  rot: [0.15, 0.3, 0] as [number, number, number],  color: '#1a52ff', w: 3.2, h: 1.8 },
-    { pos: [2.5, -0.5, -0.5] as [number, number, number], rot: [-0.1, -0.25, 0] as [number, number, number], color: '#7c3aed', w: 2.8, h: 1.6 },
-    { pos: [-1, -1.8, 0.5] as [number, number, number], rot: [0.2, 0.1, 0.05] as [number, number, number],  color: '#00d4ff', w: 2.4, h: 1.4 },
-    { pos: [3.5, 1.8, -2] as [number, number, number],  rot: [0.05, -0.2, 0] as [number, number, number],  color: '#1a52ff', w: 2.0, h: 1.2 },
+    { pos: [-3, 1.2, -1]   as [number,number,number], rot: [0.15, 0.3, 0]    as [number,number,number], color: '#FF0000', w: 3.2, h: 1.8 },
+    { pos: [2.5, -0.5, -0.5] as [number,number,number], rot: [-0.1, -0.25, 0]  as [number,number,number], color: '#950101', w: 2.8, h: 1.6 },
+    { pos: [-1, -1.8, 0.5] as [number,number,number], rot: [0.2, 0.1, 0.05]  as [number,number,number], color: '#FF3333', w: 2.4, h: 1.4 },
+    { pos: [3.5, 1.8, -2]  as [number,number,number], rot: [0.05, -0.2, 0]   as [number,number,number], color: '#CC0000', w: 2.0, h: 1.2 },
   ]
 
   return (
@@ -128,16 +124,11 @@ function FloatingPlanes({ progress }: { progress: number }) {
         <Float key={i} speed={1.2 + i * 0.3} rotationIntensity={0.2} floatIntensity={0.4}>
           <mesh position={p.pos} rotation={p.rot}>
             <planeGeometry args={[p.w, p.h]} />
-            <meshBasicMaterial color={p.color} wireframe transparent opacity={opacity * 0.5} side={THREE.DoubleSide} />
+            <meshBasicMaterial color={p.color} wireframe transparent opacity={opacity * 0.55} side={THREE.DoubleSide} />
           </mesh>
           <mesh position={p.pos} rotation={p.rot}>
             <planeGeometry args={[p.w, p.h]} />
-            <meshStandardMaterial
-              color={p.color}
-              transparent
-              opacity={opacity * 0.06}
-              side={THREE.DoubleSide}
-            />
+            <meshStandardMaterial color={p.color} transparent opacity={opacity * 0.07} side={THREE.DoubleSide} />
           </mesh>
         </Float>
       ))}
@@ -200,12 +191,12 @@ function NodeNetwork({ progress }: { progress: number }) {
     <group>
       {nodes.map((n, i) => (
         <mesh key={i} position={n.pos}>
-          <sphereGeometry args={[0.1, 8, 8]} />
-          <meshBasicMaterial ref={i === 0 ? pulseMaterial : undefined} color="#00d4ff" transparent opacity={opacity * 0.9} />
+          <sphereGeometry args={[0.12, 6, 6]} />
+          <meshBasicMaterial ref={i === 0 ? pulseMaterial : undefined} color="#FF0000" transparent opacity={opacity * 0.9} />
         </mesh>
       ))}
       {lineGeometries.map((g, i) => {
-        const lineObj = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#1a52ff', transparent: true, opacity: opacity * 0.25 }))
+        const lineObj = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#950101', transparent: true, opacity: opacity * 0.3 }))
         return <primitive key={i} object={lineObj} />
       })}
     </group>
@@ -213,31 +204,30 @@ function NodeNetwork({ progress }: { progress: number }) {
 }
 
 /* ─── Stable Orb (Acts 5 + 6) ───────────────────── */
-function StableOrb({ progress, theme }: { progress: number; theme: string }) {
+function StableOrb({ progress }: { progress: number }) {
   const enter  = Math.max(0, Math.min((progress - 0.65) / 0.1, 1))
   const opacity = enter
   if (opacity <= 0.01) return null
 
-  const color = theme === 'dark' ? '#00d4ff' : '#1a52ff'
-  const scale = 1 + (progress - 0.65) * 0.3
+  const scale = 1 + (progress - 0.65) * 0.35
 
   return (
     <Float speed={0.8} floatIntensity={0.3} rotationIntensity={0.15}>
-      <Sphere args={[2, 64, 64]} scale={scale}>
+      <Sphere args={[2, 32, 32]} scale={scale}>
         <MeshDistortMaterial
-          color={color}
+          color="#FF0000"
           attach="material"
-          distort={0.25}
-          speed={1.5}
-          roughness={0.1}
-          metalness={0.8}
+          distort={0.3}
+          speed={1.8}
+          roughness={0.05}
+          metalness={0.85}
           transparent
-          opacity={opacity * 0.18}
+          opacity={opacity * 0.15}
           wireframe={false}
         />
       </Sphere>
-      <Sphere args={[2.02, 32, 32]} scale={scale}>
-        <meshBasicMaterial color={color} wireframe transparent opacity={opacity * 0.08} />
+      <Sphere args={[2.06, 16, 16]} scale={scale}>
+        <meshBasicMaterial color="#CC0000" wireframe transparent opacity={opacity * 0.1} />
       </Sphere>
     </Float>
   )
@@ -245,29 +235,27 @@ function StableOrb({ progress, theme }: { progress: number; theme: string }) {
 
 /* ─── Main Canvas ────────────────────────────────── */
 export default function MainCanvas({ scrollProgress }: CanvasProps) {
-  const { theme } = useTheme()
-
-  const bgColor = theme === 'dark'
-    ? new THREE.Color('#050a14')
-    : new THREE.Color('#f8fafc')
+  const bgColor = new THREE.Color('#000000')
 
   return (
     <div id="luminexis-canvas" aria-hidden="true">
       <Canvas
         camera={{ fov: 55, near: 0.1, far: 100, position: [0, 0, 8] }}
-        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
-        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: false, powerPreference: 'high-performance', stencil: false }}
+        dpr={1}
+        performance={{ min: 0.5 }}
       >
         <color attach="background" args={[bgColor]} />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={1.2} color={theme === 'dark' ? '#00d4ff' : '#1a52ff'} />
-        <pointLight position={[-8, -6, -5]} intensity={0.6} color="#7c3aed" />
+        <ambientLight intensity={0.25} />
+        <pointLight position={[10, 10, 10]}  intensity={1.8} color="#FF0000" />
+        <pointLight position={[-8, -6, -5]}  intensity={0.8} color="#950101" />
+        <pointLight position={[0, -10, 5]}   intensity={0.4} color="#3D0000" />
 
         <ParticleField  progress={scrollProgress} />
         <WireframeGrid  progress={scrollProgress} />
         <FloatingPlanes progress={scrollProgress} />
         <NodeNetwork    progress={scrollProgress} />
-        <StableOrb      progress={scrollProgress} theme={theme} />
+        <StableOrb      progress={scrollProgress} />
 
         <Environment preset="night" />
       </Canvas>

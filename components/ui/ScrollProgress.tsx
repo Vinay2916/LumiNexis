@@ -30,11 +30,19 @@ export default function ScrollProgress({ progress }: { progress: number }) {
   return (
     <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-3">
       {/* Track */}
-      <div className="relative w-px h-48 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
+      <div
+        className="relative w-px h-48 rounded-full overflow-hidden"
+        style={{ background: 'rgba(149,1,1,0.25)' }}
+      >
         <div
           ref={lineRef}
           className="absolute top-0 left-0 right-0 origin-top rounded-full"
-          style={{ height: '100%', background: 'var(--accent)', transform: 'scaleY(0)' }}
+          style={{
+            height: '100%',
+            background: 'linear-gradient(180deg, #FF0000 0%, #950101 100%)',
+            transform: 'scaleY(0)',
+            boxShadow: '0 0 8px rgba(255,0,0,0.6)',
+          }}
         />
       </div>
 
@@ -43,20 +51,21 @@ export default function ScrollProgress({ progress }: { progress: number }) {
         <button
           key={act.id}
           onClick={() => document.getElementById(act.id)?.scrollIntoView({ behavior: 'smooth' })}
-          className="flex items-center gap-1.5 group"
+          className="flex items-center gap-2 group"
           title={`Act ${act.label}`}
         >
           <span
-            className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+            className="rounded-full transition-all duration-300"
             style={{
-              background: i === activeAct ? 'var(--accent)' : 'var(--border)',
-              transform: i === activeAct ? 'scale(1.5)' : 'scale(1)',
-              boxShadow: i === activeAct ? '0 0 6px var(--glow)' : 'none',
+              width:     i === activeAct ? '8px' : '6px',
+              height:    i === activeAct ? '8px' : '6px',
+              background: i === activeAct ? '#FF0000' : 'rgba(149,1,1,0.5)',
+              boxShadow:  i === activeAct ? '0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.3)' : 'none',
             }}
           />
           <span
-            className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-            style={{ color: 'var(--fg-muted)' }}
+            className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+            style={{ color: 'var(--accent)' }}
           >
             {act.label}
           </span>

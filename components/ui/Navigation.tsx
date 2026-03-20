@@ -4,13 +4,16 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from '@/lib/gsap'
 import { useTheme } from '@/components/providers/ThemeProvider'
 
+// Navigation links
 const NAV_LINKS = [
   { label: 'Work',        href: '#work' },
-  { label: 'Services',    href: '#act3' },
-  { label: 'Process',     href: '#process' },
+  { label: 'Services',   href: '#act3' },
+  { label: 'Process',    href: '#process' },
   { label: 'Engineering', href: '#act4' },
-  { label: 'Contact',     href: '#contact' },
+  { label: 'Contact',    href: '#contact' },
 ]
+
+
 
 export default function Navigation() {
   const navRef = useRef<HTMLElement>(null)
@@ -40,22 +43,27 @@ export default function Navigation() {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
         background: scrolled
-          ? theme === 'dark'
-            ? 'rgba(5,10,20,0.85)'
-            : 'rgba(248,250,252,0.85)'
+          ? 'rgba(0, 0, 0, 0.92)'
           : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(149,1,1,0.35)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 4px 32px rgba(255,0,0,0.08)' : 'none',
       }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         {/* Logo */}
         <button onClick={() => scrollTo('#hero')} className="flex items-center gap-3 group">
           <LuminexisLogo />
-          <span className="font-semibold text-sm tracking-wide text-fg group-hover:text-accent transition-colors">
+          <span
+            className="font-semibold text-sm tracking-wide transition-colors duration-200"
+            style={{ color: 'var(--fg)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)' }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg)' }}
+          >
             Luminexis
           </span>
         </button>
@@ -66,27 +74,40 @@ export default function Navigation() {
             <button
               key={link.href}
               onClick={() => scrollTo(link.href)}
-              className="font-mono text-xs tracking-widest uppercase transition-colors hover:text-accent"
+              className="relative font-mono text-xs tracking-widest uppercase transition-colors duration-200 group"
               style={{ color: 'var(--fg-muted)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-muted)' }}
             >
               {link.label}
+              <span
+                className="absolute -bottom-1 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
+                style={{ background: 'var(--accent)' }}
+              />
             </button>
           ))}
         </div>
 
         {/* Right controls */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 flex items-center justify-center rounded-sm transition-all hover:border-accent"
-            style={{ border: '1px solid var(--border)', color: 'var(--fg-muted)' }}
+            className="w-9 h-9 flex items-center justify-center rounded-sm transition-all duration-200"
+            style={{ border: '1px solid rgba(149,1,1,0.4)', color: 'var(--fg-muted)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,0,0,0.6)'
+              e.currentTarget.style.color = 'var(--accent)'
+              e.currentTarget.style.boxShadow = '0 0 12px rgba(255,0,0,0.15)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(149,1,1,0.4)'
+              e.currentTarget.style.color = 'var(--fg-muted)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
             aria-label="Toggle theme"
           >
-            {theme === 'dark'
-              ? <SunIcon />
-              : <MoonIcon />
-            }
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
           </button>
 
           {/* CTA */}
@@ -113,24 +134,26 @@ export default function Navigation() {
       <div
         className="md:hidden overflow-hidden transition-all duration-300"
         style={{
-          maxHeight: menuOpen ? '300px' : '0',
-          background: theme === 'dark' ? 'rgba(5,10,20,0.95)' : 'rgba(248,250,252,0.95)',
-          backdropFilter: 'blur(16px)',
-          borderBottom: menuOpen ? '1px solid var(--border)' : 'none',
+          maxHeight: menuOpen ? '340px' : '0',
+          background: 'rgba(0, 0, 0, 0.97)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: menuOpen ? '1px solid rgba(149,1,1,0.35)' : 'none',
         }}
       >
-        <div className="px-6 py-4 space-y-4">
+        <div className="px-6 py-5 space-y-4">
           {NAV_LINKS.map((link) => (
             <button
               key={link.href}
               onClick={() => scrollTo(link.href)}
-              className="block font-mono text-xs tracking-widest uppercase w-full text-left py-2 hover:text-accent transition-colors"
-              style={{ color: 'var(--fg-muted)' }}
+              className="block font-mono text-xs tracking-widest uppercase w-full text-left py-2 transition-colors duration-200"
+              style={{ color: 'var(--fg-muted)', borderBottom: '1px solid rgba(149,1,1,0.15)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-muted)' }}
             >
               {link.label}
             </button>
           ))}
-          <button onClick={() => scrollTo('#contact')} className="cta-primary w-full justify-center text-xs py-3">
+          <button onClick={() => scrollTo('#contact')} className="cta-primary w-full justify-center text-xs py-3 mt-2">
             Start a Project
           </button>
         </div>
@@ -141,10 +164,23 @@ export default function Navigation() {
 
 function LuminexisLogo() {
   return (
-    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-      <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="var(--accent)" strokeWidth="1.5" fill="none" />
-      <polygon points="14,8 20,11 20,17 14,20 8,17 8,11" fill="var(--accent)" opacity="0.3" />
-      <circle cx="14" cy="14" r="2" fill="var(--accent)" />
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      {/* Outer hex with red glow */}
+      <polygon
+        points="14,2 25,8 25,20 14,26 3,20 3,8"
+        stroke="#FF0000"
+        strokeWidth="1.5"
+        fill="none"
+        style={{ filter: 'drop-shadow(0 0 4px rgba(255,0,0,0.6))' }}
+      />
+      {/* Inner hex fill */}
+      <polygon
+        points="14,8 20,11.5 20,17.5 14,21 8,17.5 8,11.5"
+        fill="#950101"
+        opacity="0.55"
+      />
+      {/* Center dot */}
+      <circle cx="14" cy="14" r="2.2" fill="#FF0000" style={{ filter: 'drop-shadow(0 0 3px rgba(255,0,0,0.9))' }} />
     </svg>
   )
 }

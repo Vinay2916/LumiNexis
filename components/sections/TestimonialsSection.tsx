@@ -31,44 +31,53 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="py-24 px-6 md:px-12 lg:px-24">
       <div ref={ref} className="max-w-5xl w-full mx-auto">
-        <p data-reveal className="act-label">Client Results</p>
+        <p data-reveal className="act-label">Partner Testimonies</p>
 
         <h2 data-reveal className="headline-lg mb-4">
-          What clients{' '}
+          What partners{' '}
           <span className="gradient-text">say.</span>
         </h2>
 
         <p data-reveal className="body-text max-w-xl mb-14">
           We measure success by outcomes — not deliverables.
-          Here is what structured engineering looks like from the client's perspective.
+          Here is what structured digital systems look like from a partner’s perspective.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {TESTIMONIALS.map((t, i) => (
             <div
               key={t.id}
               data-reveal
-              className="glass-card p-6 rounded-sm flex flex-col gap-5 group hover:border-accent transition-all duration-300"
-              style={{ borderColor: 'var(--border)' }}
+              className="glass-card p-7 rounded-sm flex flex-col gap-4 group cursor-default"
             >
-              {/* Quote mark */}
-              <span className="text-4xl font-serif leading-none" style={{ color: 'var(--accent)', opacity: 0.5 }}>"</span>
+              {/* Large quote mark */}
+              <span
+                className="text-5xl font-serif leading-none transition-all duration-300 group-hover:scale-110"
+                style={{ color: 'var(--accent)', opacity: 0.6, display: 'block' }}
+              >
+                &ldquo;
+              </span>
 
               <p className="body-text text-sm leading-relaxed flex-1 italic">
                 {t.quote}
               </p>
 
-              <div className="pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
+              <div className="pt-5" style={{ borderTop: '1px solid var(--border)' }}>
                 <div className="flex items-center gap-3">
-                  {/* Avatar placeholder */}
+                  {/* Avatar */}
                   <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold"
-                    style={{ background: 'var(--bg-alt)', border: '1px solid var(--border)', color: 'var(--accent)' }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(149,1,1,0.5), rgba(61,0,0,0.8))',
+                      border: '1px solid rgba(255,0,0,0.3)',
+                      color: 'var(--accent)',
+                      boxShadow: '0 0 12px rgba(255,0,0,0.15)',
+                    }}
                   >
-                    {t.author.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                    {t.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-fg leading-tight">{t.author}</p>
+                    <p className="text-sm font-semibold" style={{ color: 'var(--fg)' }}>{t.author}</p>
                     <p className="font-mono text-xs mt-0.5" style={{ color: 'var(--fg-muted)' }}>
                       {t.role} · {t.company}
                     </p>
@@ -77,10 +86,14 @@ export default function TestimonialsSection() {
               </div>
 
               <span
-                className="font-mono text-xs px-2 py-1 rounded-sm self-start"
-                style={{ background: 'var(--bg-alt)', color: 'var(--accent)', border: '1px solid var(--border)' }}
+                className="font-mono text-xs px-2 py-1 rounded-sm self-start transition-all duration-300"
+                style={{
+                  background: 'rgba(149,1,1,0.15)',
+                  color: 'var(--accent)',
+                  border: '1px solid rgba(149,1,1,0.4)',
+                }}
               >
-                {t.project}
+                {t.engagement}
               </span>
             </div>
           ))}

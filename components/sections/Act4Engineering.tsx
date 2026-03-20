@@ -57,8 +57,15 @@ export default function Act4Engineering() {
   ]
 
   return (
-    <section id="act4" className="section-container min-h-screen py-24">
-      <div ref={ref} className="max-w-5xl w-full mx-auto">
+    <section id="act4" className="section-container min-h-screen py-24 relative overflow-hidden">
+      {/* Red ambient bottom glow */}
+      <div
+        className="absolute bottom-0 inset-x-0 pointer-events-none"
+        style={{ height: '40vh', background: 'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(61,0,0,0.4) 0%, transparent 70%)' }}
+        aria-hidden
+      />
+
+      <div ref={ref} className="max-w-5xl w-full mx-auto relative z-10">
         <p data-reveal className="act-label">Act 04 — Engineering</p>
 
         <h2 data-reveal className="headline-xl mb-4">
@@ -72,24 +79,32 @@ export default function Act4Engineering() {
         </p>
 
         {/* Metric counters */}
-        <div data-reveal className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+        <div data-reveal className="grid grid-cols-2 md:grid-cols-4 gap-1 mb-14 honor-card">
           {METRICS.map((m, i) => (
-            <div key={i} className="metric-box rounded-sm text-center">
+            <div
+              key={i}
+              className="metric-box rounded-none border-0 text-center cursor-default transition-all duration-300 hover:bg-[rgba(149,1,1,0.15)]"
+              style={{ background: 'transparent', boxShadow: 'none' }}
+            >
               <span className="text-3xl md:text-4xl font-bold gradient-text font-mono">
                 {m.value.startsWith('<') ? '<' : ''}{counts[i]}{m.suffix}
               </span>
-              <span className="body-text text-xs uppercase tracking-widest">{m.label}</span>
+              <span className="body-text text-xs uppercase tracking-widest block mt-1">{m.label}</span>
             </div>
           ))}
         </div>
 
         {/* Stack table */}
         <div data-reveal className="space-y-2">
-          <p className="font-mono text-xs tracking-widest mb-4 text-accent">TECHNOLOGY STACK</p>
+          <p className="font-mono text-xs tracking-widest mb-4" style={{ color: 'var(--accent)' }}>TECHNOLOGY STACK</p>
           {stack.map((s, i) => (
-            <div key={i} className="glass-card flex items-start md:items-center gap-4 px-5 py-4 rounded-sm
-              hover:border-accent transition-all duration-200 group" style={{ borderColor: 'var(--border)' }}>
-              <span className="font-mono text-xs w-28 flex-shrink-0 text-accent uppercase tracking-wider">{s.layer}</span>
+            <div
+              key={i}
+              className="glass-card flex items-start md:items-center gap-4 px-5 py-4 rounded-sm group"
+            >
+              <span className="font-mono text-xs w-28 flex-shrink-0 uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
+                {s.layer}
+              </span>
               <div className="h-px flex-1 hidden md:block opacity-20" style={{ background: 'var(--accent)' }} />
               <span className="body-text text-sm">{s.tech}</span>
             </div>

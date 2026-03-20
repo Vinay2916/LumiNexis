@@ -30,18 +30,30 @@ export default function Act3Design() {
   }, [])
 
   return (
-    <section id="act3" className="section-container min-h-screen py-24">
-      <div ref={ref} className="max-w-5xl w-full mx-auto">
-        <p data-reveal className="act-label">Act 03 — Design Execution</p>
+    <section id="act3" className="section-container min-h-screen py-24 relative overflow-hidden">
+      {/* Red corner accent */}
+      <div
+        className="absolute top-0 right-0 pointer-events-none"
+        style={{
+          width: '40vw', height: '40vh',
+          background: 'radial-gradient(ellipse at 100% 0%, rgba(61,0,0,0.35) 0%, transparent 65%)',
+        }}
+        aria-hidden
+      />
+
+      <div ref={ref} className="max-w-5xl w-full mx-auto relative z-10">
+        <p data-reveal className="font-mono text-xs tracking-[0.28em] uppercase mb-4" style={{ color: 'var(--accent)', opacity: 0.85 }}>
+          What We Build
+        </p>
 
         <h2 data-reveal className="headline-xl mb-4">
-          Design with{' '}
-          <span className="gradient-text">Purpose.</span>
+          Every System,{' '}
+          <span className="gradient-text">Structurally Accountable.</span>
         </h2>
 
-        <p data-reveal className="body-text max-w-xl mb-16">
-          Built around clarity and conversion logic.
-          Every component earns its place.
+        <p data-reveal className="body-text max-w-xl mb-16" style={{ color: 'var(--fg-muted)' }}>
+          Interface decisions are made after structural planning — not before.
+          Every component is accountable to a commercial objective.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -53,25 +65,52 @@ export default function Act3Design() {
               onMouseEnter={() => setHovered(s.id)}
               onMouseLeave={() => setHovered(null)}
             >
-              {/* Blueprint corner lines */}
-              <span className="absolute top-0 left-0 w-4 h-4 border-t border-l transition-all duration-300 group-hover:w-8 group-hover:h-8"
-                style={{ borderColor: 'var(--accent)' }} />
-              <span className="absolute bottom-0 right-0 w-4 h-4 border-b border-r transition-all duration-300 group-hover:w-8 group-hover:h-8"
-                style={{ borderColor: 'var(--accent)' }} />
+              {/* Corner accent lines — expand on hover */}
+              <span
+                className="absolute top-0 left-0 border-t border-l transition-all duration-400"
+                style={{
+                  width:  hovered === s.id ? '40px' : '16px',
+                  height: hovered === s.id ? '40px' : '16px',
+                  borderColor: 'var(--accent)',
+                  opacity: hovered === s.id ? 1 : 0.6,
+                }}
+              />
+              <span
+                className="absolute bottom-0 right-0 border-b border-r transition-all duration-400"
+                style={{
+                  width:  hovered === s.id ? '40px' : '16px',
+                  height: hovered === s.id ? '40px' : '16px',
+                  borderColor: 'var(--accent)',
+                  opacity: hovered === s.id ? 1 : 0.6,
+                }}
+              />
 
-              <span className="text-2xl mb-4 block transition-transform duration-300 group-hover:scale-110"
-                style={{ color: hovered === s.id ? 'var(--accent)' : 'var(--fg-muted)' }}>
+              <span
+                className="text-2xl mb-5 block transition-all duration-300"
+                style={{
+                  color: hovered === s.id ? 'var(--accent)' : 'var(--fg-muted)',
+                  transform: hovered === s.id ? 'scale(1.15) translateY(-2px)' : 'scale(1)',
+                  filter: hovered === s.id ? 'drop-shadow(0 0 8px rgba(255,0,0,0.6))' : 'none',
+                }}
+              >
                 {s.icon}
               </span>
 
-              <h3 className="font-semibold text-lg mb-2 text-fg">{s.title}</h3>
-              <p className="body-text text-sm mb-4">{s.description}</p>
+              <h3 className="font-semibold text-lg mb-3" style={{ color: 'var(--fg)' }}>{s.title}</h3>
+              <p className="body-text text-sm mb-5">{s.description}</p>
 
               <div className="flex flex-wrap gap-2">
                 {s.tags.map((tag) => (
-                  <span key={tag}
-                    className="font-mono text-xs px-2 py-1 rounded-sm"
-                    style={{ background: 'var(--bg-alt)', color: 'var(--accent)', border: '1px solid var(--border)' }}>
+                  <span
+                    key={tag}
+                    className="font-mono text-xs px-2 py-1 rounded-sm transition-all duration-200"
+                    style={{
+                      background: hovered === s.id ? 'rgba(255,0,0,0.1)' : 'var(--bg-alt)',
+                      color: 'var(--accent)',
+                      border: '1px solid',
+                      borderColor: hovered === s.id ? 'rgba(255,0,0,0.4)' : 'var(--border)',
+                    }}
+                  >
                     {tag}
                   </span>
                 ))}

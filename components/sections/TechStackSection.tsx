@@ -29,10 +29,15 @@ export default function TechStackSection() {
   }, [])
 
   return (
-    <section id="stack" className="py-24 px-6 md:px-12 lg:px-24 relative" style={{ background: 'var(--bg-alt)' }}>
-      {/* Blueprint dot grid */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(circle, var(--border) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+    <section id="stack" className="py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ background: 'var(--bg-alt)' }}>
+      {/* Dot grid bg */}
+      <div className="absolute inset-0 dot-grid-bg opacity-40 pointer-events-none" aria-hidden />
+      {/* Red ambient glow */}
+      <div
+        className="absolute top-0 inset-x-0 pointer-events-none"
+        style={{ height: '35vh', background: 'radial-gradient(ellipse 70% 40% at 50% 0%, rgba(61,0,0,0.5) 0%, transparent 70%)' }}
+        aria-hidden
+      />
 
       <div ref={ref} className="max-w-5xl w-full mx-auto relative">
         <p data-reveal className="act-label">Technology</p>
@@ -68,11 +73,21 @@ export default function TechStackSection() {
                 {layer.items.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1.5 font-mono text-xs rounded-sm transition-all duration-200 hover:border-accent cursor-default"
+                    className="px-3 py-1.5 font-mono text-xs rounded-sm cursor-default transition-all duration-250"
                     style={{
-                      background: 'var(--bg)',
-                      border: '1px solid var(--border)',
+                      background: 'rgba(10,0,0,0.9)',
+                      border: '1px solid rgba(149,1,1,0.35)',
                       color: 'var(--fg)',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLSpanElement).style.borderColor = 'rgba(255,0,0,0.6)'
+                      ;(e.currentTarget as HTMLSpanElement).style.color = 'var(--accent)'
+                      ;(e.currentTarget as HTMLSpanElement).style.boxShadow = '0 0 12px rgba(255,0,0,0.15)'
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLSpanElement).style.borderColor = 'rgba(149,1,1,0.35)'
+                      ;(e.currentTarget as HTMLSpanElement).style.color = 'var(--fg)'
+                      ;(e.currentTarget as HTMLSpanElement).style.boxShadow = 'none'
                     }}
                   >
                     {tech}

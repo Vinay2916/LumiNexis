@@ -35,18 +35,20 @@ export default function Act2Strategy() {
   ]
 
   return (
-    <section id="act2" className="section-container min-h-screen py-24">
-      <div ref={ref} className="max-w-5xl w-full mx-auto">
+    <section id="act2" className="section-container min-h-screen py-24 relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <div
+          style={{
+            position: 'absolute', top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '60vw', height: '60vh',
+            background: 'radial-gradient(ellipse, rgba(61,0,0,0.3) 0%, transparent 70%)',
+          }}
+        />
+      </div>
 
-        {/* Authority stats strip */}
-        <div data-reveal className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 p-6 glass-card rounded-sm">
-          {AUTHORITY_STATS.map((s, i) => (
-            <div key={i} className="text-center py-2">
-              <p className="text-3xl md:text-4xl font-bold gradient-text font-mono mb-1">{s.value}</p>
-              <p className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--fg-muted)' }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
+      <div ref={ref} className="max-w-5xl w-full mx-auto relative z-10">
 
         <p data-reveal className="act-label">Act 02 — Strategy</p>
 
@@ -57,25 +59,44 @@ export default function Act2Strategy() {
 
         <p data-reveal className="body-text max-w-xl mb-16">
           We don't design pages.<br />
-          We design <strong className="text-fg">systems.</strong> Every engagement starts with defined goals,
+          We design <strong style={{ color: 'var(--fg)' }}>systems.</strong> Every engagement starts with defined goals,
           measurable targets, and a structured plan — before a single component is designed.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
           {pillars.map((p, i) => (
-            <div key={i} data-reveal className="glass-card p-6 rounded-sm group hover:border-accent transition-all duration-300"
-              style={{ borderColor: 'var(--border)' }}>
-              <span className="text-2xl mb-3 block group-hover:scale-110 transition-transform" style={{ color: 'var(--accent)' }}>{p.icon}</span>
-              <h3 className="font-semibold text-sm tracking-wide mb-2 uppercase font-mono" style={{ color: 'var(--accent)' }}>{p.label}</h3>
+            <div
+              key={i}
+              data-reveal
+              className="glass-card p-7 rounded-sm group cursor-default"
+            >
+              <span
+                className="text-2xl mb-5 block transition-transform duration-300 group-hover:scale-110"
+                style={{ color: 'var(--accent)' }}
+              >
+                {p.icon}
+              </span>
+              <h3
+                className="font-semibold text-sm tracking-wide mb-3 uppercase font-mono"
+                style={{ color: 'var(--accent)' }}
+              >
+                {p.label}
+              </h3>
               <p className="body-text text-sm">{p.desc}</p>
             </div>
           ))}
         </div>
 
-        <div data-reveal className="mt-12 glass-card p-6 rounded-sm border-l-2" style={{ borderLeftColor: 'var(--accent)' }}>
-          <p className="font-mono text-xs tracking-widest mb-2 text-accent">OUR POSITIONING</p>
-          <p className="body-text">
-            Luminexis operates as a <strong className="text-fg">Design &amp; Development Studio</strong> — not a freelancer, not a template shop.
+        {/* Positioning statement */}
+        <div
+          data-reveal
+          className="glass-card p-6 rounded-sm"
+          style={{ borderLeft: '3px solid var(--accent)', paddingLeft: '1.5rem' }}
+        >
+          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: 'var(--accent)' }}>OUR POSITIONING</p>
+          <p className="body-text text-sm leading-relaxed">
+            Luminexis operates as a{' '}
+            <strong style={{ color: 'var(--fg)' }}>Design &amp; Development Studio</strong> — not a freelancer, not a template shop.
             We serve clients across India and globally, delivering structured, scalable digital platforms engineered for performance and conversion.
           </p>
         </div>
