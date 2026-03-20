@@ -68,7 +68,7 @@ export default function Act2Strategy() {
             <div
               key={i}
               data-reveal
-              className="glass-card p-7 rounded-sm group cursor-default"
+              className="glass-card p-7 rounded-2xl group cursor-default"
             >
               <span
                 className="text-2xl mb-5 block transition-transform duration-300 group-hover:scale-110"
@@ -90,7 +90,7 @@ export default function Act2Strategy() {
         {/* Positioning statement */}
         <div
           data-reveal
-          className="glass-card p-6 rounded-sm"
+          className="glass-card p-6 rounded-2xl"
           style={{ borderLeft: '3px solid var(--accent)', paddingLeft: '1.5rem' }}
         >
           <p className="font-mono text-xs tracking-widest mb-3" style={{ color: 'var(--accent)' }}>OUR POSITIONING</p>

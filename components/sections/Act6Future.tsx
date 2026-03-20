@@ -67,7 +67,7 @@ export default function Act6Future() {
         {/* Luminexis Principles */}
         <div data-reveal className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-20">
           {LUMINEXIS_PRINCIPLES.map((principle, i) => (
-            <div key={i} className="glass-card px-6 py-5 rounded-sm flex items-center gap-4 group cursor-default">
+            <div key={i} className="glass-card px-6 py-5 rounded-2xl flex items-center gap-4 group cursor-default">
               <span
                 className="font-mono text-xs font-bold flex-shrink-0 transition-all duration-200"
                 style={{ color: 'var(--accent)' }}
@@ -120,7 +120,7 @@ export default function Act6Future() {
             {/* Right: form */}
             <div data-reveal className="lg:col-span-3">
               {submitted ? (
-                <div className="glass-card p-10 rounded-sm flex flex-col items-center justify-center text-center gap-4 min-h-[400px]">
+                <div className="glass-card p-10 rounded-2xl flex flex-col items-center justify-center text-center gap-4 min-h-[400px]">
                   <span className="text-4xl" style={{ color: 'var(--accent)' }}>◈</span>
                   <h4 className="text-xl font-bold text-fg">Message Received.</h4>
                   <p className="body-text max-w-sm">
@@ -136,7 +136,7 @@ export default function Act6Future() {
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="glass-card p-6 md:p-8 rounded-sm space-y-5"
+                  className="glass-card p-6 md:p-8 rounded-2xl space-y-5"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <FormField label="Your Name *" name="name" value={formState.name} onChange={handleChange} placeholder="Hari Prasad" required />
@@ -152,7 +152,7 @@ export default function Act6Future() {
                       name="project"
                       value={formState.project}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-sm text-sm outline-none transition-all duration-200 font-sans"
+                      className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 font-sans"
                       style={{
                         background: 'rgba(8,0,0,0.9)',
                         border: '1px solid rgba(149,1,1,0.35)',
@@ -178,7 +178,7 @@ export default function Act6Future() {
                           key={b}
                           type="button"
                           onClick={() => setFormState(p => ({ ...p, budget: b }))}
-                          className="px-3 py-1.5 font-mono text-xs rounded-sm transition-all duration-200"
+                          className="px-3 py-1.5 font-mono text-xs rounded-full transition-all duration-200"
                           style={{
                             border: '1px solid',
                             borderColor: formState.budget === b ? 'rgba(255,0,0,0.6)' : 'rgba(149,1,1,0.35)',
@@ -204,7 +204,7 @@ export default function Act6Future() {
                       required
                       rows={4}
                       placeholder="Describe your structural requirements, objectives, and timeline…"
-                      className="w-full px-4 py-3 rounded-sm text-sm outline-none transition-all duration-200 resize-none font-sans"
+                      className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 resize-none font-sans"
                       style={{
                         background: 'rgba(8,0,0,0.9)',
                         border: '1px solid rgba(149,1,1,0.35)',
@@ -264,7 +264,7 @@ function FormField({ label, name, value, onChange, placeholder, type = 'text', r
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="w-full px-4 py-3 rounded-sm text-sm outline-none transition-all duration-200 font-sans"
+        className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 font-sans"
         style={{
           background: 'rgba(8,0,0,0.9)',
           border: '1px solid rgba(149,1,1,0.35)',

@@ -61,7 +61,7 @@ export default function Act3Design() {
             <div
               key={s.id}
               data-reveal
-              className="service-module rounded-sm relative overflow-hidden group"
+              className="service-module rounded-2xl relative overflow-hidden group"
               onMouseEnter={() => setHovered(s.id)}
               onMouseLeave={() => setHovered(null)}
             >
@@ -103,7 +103,7 @@ export default function Act3Design() {
                 {s.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-xs px-2 py-1 rounded-sm transition-all duration-200"
+                    className="font-mono text-xs px-2 py-1 rounded-full transition-all duration-200"
                     style={{
                       background: hovered === s.id ? 'rgba(255,0,0,0.1)' : 'var(--bg-alt)',
                       color: 'var(--accent)',

@@ -68,7 +68,7 @@ export default function EngagementStandardSection() {
             <div
               key={i}
               data-reveal
-              className="glass-card p-7 rounded-sm group cursor-default relative overflow-hidden"
+              className="glass-card p-7 rounded-2xl group cursor-default relative overflow-hidden"
             >
               <span
                 className="text-2xl mb-5 block transition-all duration-300 group-hover:scale-110"

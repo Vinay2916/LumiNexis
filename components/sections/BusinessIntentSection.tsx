@@ -73,7 +73,7 @@ export default function BusinessIntentSection() {
             <div
               key={i}
               data-reveal
-              className="glass-card p-7 rounded-sm group cursor-default relative overflow-hidden"
+              className="glass-card p-7 rounded-2xl group cursor-default relative overflow-hidden"
             >
               {/* Number badge */}
               <span

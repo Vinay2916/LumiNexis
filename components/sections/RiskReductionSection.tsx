@@ -85,7 +85,7 @@ export default function RiskReductionSection() {
           {/* Right: structural principle card */}
           <div data-reveal>
             <div
-              className="glass-card p-8 rounded-sm h-full flex flex-col justify-between"
+              className="glass-card p-8 rounded-2xl h-full flex flex-col justify-between"
               style={{ borderColor: 'var(--border)', minHeight: '340px' }}
             >
               <div>

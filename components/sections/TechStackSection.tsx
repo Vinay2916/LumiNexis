@@ -58,7 +58,7 @@ export default function TechStackSection() {
             <div
               key={i}
               data-reveal
-              className="glass-card p-6 rounded-sm group"
+              className="glass-card p-6 rounded-2xl group"
               style={{ borderColor: 'var(--border)' }}
             >
               <div className="flex items-center gap-3 mb-5">
@@ -73,7 +73,7 @@ export default function TechStackSection() {
                 {layer.items.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1.5 font-mono text-xs rounded-sm cursor-default transition-all duration-250"
+                    className="px-3 py-1.5 font-mono text-xs rounded-full cursor-default transition-all duration-250"
                     style={{
                       background: 'rgba(10,0,0,0.9)',
                       border: '1px solid rgba(149,1,1,0.35)',

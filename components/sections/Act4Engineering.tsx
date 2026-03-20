@@ -100,7 +100,7 @@ export default function Act4Engineering() {
           {stack.map((s, i) => (
             <div
               key={i}
-              className="glass-card flex items-start md:items-center gap-4 px-5 py-4 rounded-sm group"
+              className="glass-card flex items-start md:items-center gap-4 px-5 py-4 rounded-2xl group"
             >
               <span className="font-mono text-xs w-28 flex-shrink-0 uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
                 {s.layer}

@@ -67,7 +67,7 @@ function ParticleField({ progress }: { progress: number }) {
         size={0.08}
         color="#FF0000"
         transparent
-        opacity={opacity * 0.85}
+        opacity={opacity * 0.45}
         sizeAttenuation
         depthWrite={false}
       />
@@ -97,7 +97,7 @@ function WireframeGrid({ progress }: { progress: number }) {
         color="#950101"
         wireframe
         transparent
-        opacity={opacity * 0.45}
+        opacity={opacity * 0.22}
         side={THREE.DoubleSide}
       />
     </mesh>
@@ -124,11 +124,11 @@ function FloatingPlanes({ progress }: { progress: number }) {
         <Float key={i} speed={1.2 + i * 0.3} rotationIntensity={0.2} floatIntensity={0.4}>
           <mesh position={p.pos} rotation={p.rot}>
             <planeGeometry args={[p.w, p.h]} />
-            <meshBasicMaterial color={p.color} wireframe transparent opacity={opacity * 0.55} side={THREE.DoubleSide} />
+            <meshBasicMaterial color={p.color} wireframe transparent opacity={opacity * 0.28} side={THREE.DoubleSide} />
           </mesh>
           <mesh position={p.pos} rotation={p.rot}>
             <planeGeometry args={[p.w, p.h]} />
-            <meshStandardMaterial color={p.color} transparent opacity={opacity * 0.07} side={THREE.DoubleSide} />
+            <meshStandardMaterial color={p.color} transparent opacity={opacity * 0.035} side={THREE.DoubleSide} />
           </mesh>
         </Float>
       ))}
@@ -181,7 +181,7 @@ function NodeNetwork({ progress }: { progress: number }) {
 
   useFrame(({ clock }) => {
     if (pulseMaterial.current) {
-      pulseMaterial.current.opacity = opacity * (0.4 + 0.4 * Math.sin(clock.elapsedTime * 2))
+      pulseMaterial.current.opacity = opacity * (0.2 + 0.2 * Math.sin(clock.elapsedTime * 2))
     }
   })
 
@@ -192,11 +192,11 @@ function NodeNetwork({ progress }: { progress: number }) {
       {nodes.map((n, i) => (
         <mesh key={i} position={n.pos}>
           <sphereGeometry args={[0.12, 6, 6]} />
-          <meshBasicMaterial ref={i === 0 ? pulseMaterial : undefined} color="#FF0000" transparent opacity={opacity * 0.9} />
+          <meshBasicMaterial ref={i === 0 ? pulseMaterial : undefined} color="#FF0000" transparent opacity={opacity * 0.45} />
         </mesh>
       ))}
       {lineGeometries.map((g, i) => {
-        const lineObj = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#950101', transparent: true, opacity: opacity * 0.3 }))
+        const lineObj = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#950101', transparent: true, opacity: opacity * 0.15 }))
         return <primitive key={i} object={lineObj} />
       })}
     </group>
@@ -222,12 +222,12 @@ function StableOrb({ progress }: { progress: number }) {
           roughness={0.05}
           metalness={0.85}
           transparent
-          opacity={opacity * 0.15}
+          opacity={opacity * 0.07}
           wireframe={false}
         />
       </Sphere>
       <Sphere args={[2.06, 16, 16]} scale={scale}>
-        <meshBasicMaterial color="#CC0000" wireframe transparent opacity={opacity * 0.1} />
+        <meshBasicMaterial color="#CC0000" wireframe transparent opacity={opacity * 0.05} />
       </Sphere>
     </Float>
   )

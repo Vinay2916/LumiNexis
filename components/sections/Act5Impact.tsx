@@ -56,7 +56,7 @@ export default function Act5Impact() {
         </div>
 
         {PROJECTS.map((project) => (
-          <div key={project.id} data-reveal className="glass-card rounded-sm overflow-hidden mb-8">
+          <div key={project.id} data-reveal className="glass-card rounded-2xl overflow-hidden mb-8">
 
             {/* ── Engagement header ── */}
             <div
@@ -84,7 +84,7 @@ export default function Act5Impact() {
                     ].map((m) => (
                       <div
                         key={m.label}
-                        className="p-3 rounded-sm"
+                        className="p-3 rounded-xl"
                         style={{
                           background: 'rgba(10,0,0,0.8)',
                           border: '1px solid rgba(149,1,1,0.3)',
@@ -105,7 +105,7 @@ export default function Act5Impact() {
                       {project.services.map((s) => (
                         <span
                           key={s}
-                          className="font-mono text-xs px-2 py-1 rounded-sm"
+                          className="font-mono text-xs px-2 py-1 rounded-full"
                           style={{ background: 'rgba(149,1,1,0.15)', color: 'var(--accent)', border: '1px solid rgba(149,1,1,0.4)' }}
                         >
                           {s}
@@ -119,7 +119,7 @@ export default function Act5Impact() {
                       {project.tags.map((t) => (
                         <span
                           key={t}
-                          className="font-mono text-xs px-2 py-1 rounded-sm"
+                          className="font-mono text-xs px-2 py-1 rounded-full"
                           style={{ background: 'rgba(10,0,0,0.8)', color: 'var(--fg-muted)', border: '1px solid rgba(149,1,1,0.25)' }}
                         >
                           {t}
@@ -183,7 +183,7 @@ export default function Act5Impact() {
             {/* ── Partner testimony ── */}
             {project.testimonial && (
               <div className="p-6 md:p-8" style={{ borderTop: '1px solid var(--border)' }}>
-                <div className="glass-card p-6 rounded-sm border-l-2" style={{ borderLeftColor: 'var(--accent)' }}>
+                <div className="glass-card p-6 rounded-2xl border-l-4" style={{ borderLeftColor: 'var(--accent)' }}>
                   <p className="font-mono text-xs tracking-widest mb-4 text-accent">PARTNER TESTIMONY</p>
                   <blockquote className="body-text text-sm italic mb-4 leading-relaxed">
                     &ldquo;{project.testimonial.quote}&rdquo;

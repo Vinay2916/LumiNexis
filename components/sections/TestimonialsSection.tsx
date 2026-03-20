@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
             <div
               key={t.id}
               data-reveal
-              className="glass-card p-7 rounded-sm flex flex-col gap-4 group cursor-default"
+              className="glass-card p-7 rounded-2xl flex flex-col gap-4 group cursor-default"
             >
               {/* Large quote mark */}
               <span
@@ -86,7 +86,7 @@ export default function TestimonialsSection() {
               </div>
 
               <span
-                className="font-mono text-xs px-2 py-1 rounded-sm self-start transition-all duration-300"
+                className="font-mono text-xs px-2 py-1 rounded-full self-start transition-all duration-300"
                 style={{
                   background: 'rgba(149,1,1,0.15)',
                   color: 'var(--accent)',
